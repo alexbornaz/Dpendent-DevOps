@@ -1,4 +1,4 @@
-name: Deployment
+name: Delivery
 on:
   workflow_run:
     workflows: [ "CI-CD" ]
@@ -30,8 +30,8 @@ jobs:
       - name: Login to DockerHub
         uses: docker/login-action@v1
         with:
-          username: alexander10398
-          password: dckr_pat_OwMennEutImkxiCH2Z1kfhnsZ-4
+          username: ${your_username}
+          password: ${your_key}
 
       - name: Build and push
         uses: docker/build-push-action@v2
@@ -39,12 +39,12 @@ jobs:
           context: ./
           file: ./Dockerfile.dockerfile
           push: true
-          tags: alexander10398/dependent-devops:latest
+          tags: ${your_username}/dependent-devops:latest
 
       - name: Run the image in a container
         uses: addnab/docker-run-action@v3
         with:
-          image: alexander10398/dependent-devops:latest
+          image: ${your_username}/dependent-devops:latest
           run: |
             echo "runing the docker image"
             echo "Testing the nodejs  app endpoints"
